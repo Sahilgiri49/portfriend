@@ -13,7 +13,9 @@ import {
   Download,
   Terminal,
   UserCheck,
-  ChevronRight
+  ChevronRight,
+  Menu,
+  X
 } from 'lucide-react';
 
 const PROFILE_DATA = {
@@ -21,35 +23,35 @@ const PROFILE_DATA = {
   title: "Civil Engineering Professional",
   email: "siddhigiri7821@gmail.com",
   location: "Yavatmal, MH",
-  summary: "Dedicated Civil Engineering student with practical site exposure. Specialized in AutoCAD and construction management with a 3-month field internship.",
+  summary: "Focused Civil Engineering student with hands-on site exposure. Proficient in AutoCAD, project supervision, and construction management through professional internships.",
   expertise: [
-    "AutoCAD", "MS-CIT", "Quality Control", "Safety Procedures",
-    "Site Supervision", "Construction Planning", "Estimation", "Site Management"
+    "AutoCAD", "Site Supervision", "Quality Control", "Estimation",
+    "MS-CIT", "Material Testing", "Safety Compliance", "Project Billing"
   ],
   achievements: [
-    "Precision Site Supervision",
-    "Quantity Measurements Expert",
-    "Quality Compliance Lead"
+    "Top-Tier Site Supervision",
+    "71% Academic Score Excellence",
+    "Real-world Quantity Analysis"
   ],
   experience: [
     {
       role: "Engineering Intern",
-      company: "Balaji Construction, Yavatmal",
+      company: "Balaji Construction",
       duration: "3 Months",
       details: [
-        "Led site supervision & daily reporting",
-        "Managed RCC & brickwork quantity metrics",
-        "Ensured material quality standards",
+        "Monitored site progress & QC",
+        "Calculated RCC & brick quantities",
+        "Verified material quality standards"
       ]
     },
     {
-      role: "Field Observer",
-      company: "Industrial Visits",
+      role: "Technical Observer",
+      company: "Industrial Field Studies",
       duration: "Academic",
       details: [
-        "Analyzed site execution workflows",
         "Studied site safety protocols",
-        "Evaluated quality control measures"
+        "Analyzed structural execution",
+        "Evaluated workflow efficiency"
       ]
     }
   ],
@@ -58,25 +60,25 @@ const PROFILE_DATA = {
       degree: "Diploma in Civil Engineering",
       institution: "Govt. Polytechnic Arvi",
       period: "2023 - Present",
-      highlights: ["Reputed Technical Institute", "Direct Site Exposure"]
+      highlights: ["Technical Excellence", "Practical Site Focus"]
     },
     {
-      degree: "Secondary School Certificate (SSC)",
+      degree: "SSC (10th Grade)",
       institution: "Deorav Patil High School",
-      period: "Graduated 2023",
-      highlights: ["71% Performance", "Foundational Excellence"]
+      period: "2023",
+      highlights: ["71% Merit Result", "Strong Foundation"]
     }
   ],
   additional: {
     languages: ["English", "Marathi", "Hindi"],
-    certifications: "Active participant in technical projects and leadership activities."
+    hobbies: "Proactive in sports, dance, and leadership roles."
   },
   photoUrl: "input_file_0.png",
   resumeUrl: "input_file_1.png"
 };
 
 const SectionHeader: React.FC<{ title: string; subtitle?: string; icon: React.ReactNode; id?: string }> = ({ title, subtitle, icon, id }) => (
-  <div className="mb-8 md:mb-12 animate-reveal" id={id}>
+  <div className="mb-10 animate-reveal" id={id} style={{ opacity: 0 }}>
     <div className="flex items-center gap-3 mb-2">
       <div className="p-2 bg-emerald-600 text-white rounded-xl shadow-lg">
         {icon}
@@ -84,12 +86,13 @@ const SectionHeader: React.FC<{ title: string; subtitle?: string; icon: React.Re
       <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight uppercase">{title}</h2>
     </div>
     {subtitle && <p className="text-slate-500 text-sm md:text-base font-medium ml-1 max-w-lg">{subtitle}</p>}
-    <div className="h-1 w-16 bg-emerald-600 mt-4 rounded-full"></div>
+    <div className="h-1 w-12 bg-emerald-600 mt-4 rounded-full"></div>
   </div>
 );
 
 const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -97,106 +100,131 @@ const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const navLinks = [
+    { name: 'About', href: '#hero' },
+    { name: 'Expertise', href: '#expertise' },
+    { name: 'Experience', href: '#experience' },
+    { name: 'Education', href: '#education' }
+  ];
+
   return (
-    <div className="min-h-screen selection:bg-emerald-200 selection:text-emerald-900 overflow-x-hidden">
-      {/* Taskbar / Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass py-3 shadow-md' : 'bg-transparent py-5 md:py-8'}`}>
-        <div className="max-w-6xl mx-auto px-4 md:px-8 flex items-center justify-between">
-          <div className="flex items-center gap-3 group cursor-pointer" onClick={() => window.scrollTo({ top: 0 })}>
-            <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white transition-all group-hover:bg-slate-900 shadow-lg">
+    <div className="min-h-screen bg-[#fdfdfd] overflow-x-hidden selection:bg-emerald-100 selection:text-emerald-900">
+      {/* Floating Taskbar / Header */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass py-3 shadow-md' : 'bg-transparent py-6'}`}>
+        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+          <div className="flex items-center gap-2 group cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white transition-all group-hover:bg-emerald-600">
               <HardHat size={20} />
             </div>
-            <span className="font-black text-xl tracking-tighter text-slate-900 uppercase">SG.</span>
+            <span className="font-black text-xl tracking-tighter text-slate-900">SG.</span>
           </div>
-          
+
           <div className="hidden md:flex items-center gap-8">
-            <a href="#about-sec" className="nav-link">About</a>
-            <a href="#expertise-sec" className="nav-link">Expertise</a>
-            <a href="#experience-sec" className="nav-link">Experience</a>
-            <a href="#education-sec" className="nav-link">Education</a>
+            {navLinks.map(link => (
+              <a key={link.name} href={link.href} className="taskbar-link">{link.name}</a>
+            ))}
           </div>
 
           <div className="flex items-center gap-4">
             <a 
               href={`mailto:${PROFILE_DATA.email}`}
-              className="px-5 py-2.5 bg-slate-900 text-white text-[10px] font-black rounded-full hover:bg-emerald-600 transition-all uppercase tracking-widest shadow-md active:scale-95"
+              className="px-6 py-2.5 bg-emerald-600 text-white text-xs font-black rounded-full hover:bg-slate-900 transition-all uppercase tracking-widest shadow-lg shadow-emerald-100 active:scale-95"
             >
               Hire Me
             </a>
+            <button className="md:hidden text-slate-900" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        <div className={`md:hidden absolute top-full left-0 w-full bg-white border-b border-slate-100 transition-all duration-300 ${mobileMenuOpen ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-4 invisible'}`}>
+          <div className="p-6 flex flex-col gap-4">
+            {navLinks.map(link => (
+              <a 
+                key={link.name} 
+                href={link.href} 
+                className="font-black text-slate-500 uppercase text-sm tracking-widest hover:text-emerald-600"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {link.name}
+              </a>
+            ))}
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section id="about-sec" className="relative pt-32 pb-16 md:pt-48 md:pb-32 overflow-hidden hero-gradient">
-        <div className="max-w-6xl mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6 md:space-y-10 animate-reveal text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white text-emerald-700 rounded-full text-[10px] font-black uppercase tracking-widest border border-emerald-100 shadow-sm">
+      <section id="hero" className="relative pt-32 pb-16 md:pt-48 md:pb-32 hero-gradient overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-8 animate-reveal text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white text-emerald-700 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border border-emerald-100 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
-              Open for Opportunities
+              Engineering Portfolio
             </div>
             
-            <h1 className="text-5xl md:text-8xl font-black text-slate-900 leading-[0.9] tracking-tighter">
+            <h1 className="text-6xl md:text-8xl font-black text-slate-900 leading-[0.85] tracking-tighter">
               {PROFILE_DATA.name.split(' ')[0]} <br/>
               <span className="text-emerald-600">{PROFILE_DATA.name.split(' ')[1]}</span>
             </h1>
 
-            <p className="text-base md:text-xl text-slate-500 font-medium max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            <p className="text-lg md:text-xl text-slate-500 font-medium max-w-xl mx-auto lg:mx-0 leading-relaxed">
               {PROFILE_DATA.summary}
             </p>
             
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
               <a 
                 href={`mailto:${PROFILE_DATA.email}`} 
-                className="px-8 py-4 bg-emerald-600 text-white font-black rounded-2xl hover:bg-slate-900 transition-all shadow-xl shadow-emerald-100 flex items-center gap-3 group active:scale-95"
+                className="px-10 py-5 bg-slate-900 text-white font-black rounded-2xl hover:bg-emerald-600 transition-all shadow-xl shadow-slate-100 flex items-center gap-3 active:scale-95"
               >
-                <UserCheck size={20} />
+                <UserCheck size={22} />
                 <span>HIRE ME</span>
               </a>
               <a 
                 href={PROFILE_DATA.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-4 bg-white text-slate-900 border border-slate-100 font-black rounded-2xl hover:bg-emerald-50 transition-all flex items-center gap-3 shadow-sm active:scale-95"
+                className="px-8 py-5 bg-white text-slate-900 border border-slate-100 font-black rounded-2xl hover:bg-emerald-50 transition-all flex items-center gap-3 shadow-sm active:scale-95"
               >
-                <Download size={18} />
+                <Download size={20} />
                 <span>RESUME</span>
               </a>
             </div>
           </div>
 
           <div className="relative flex justify-center lg:justify-end animate-reveal" style={{ animationDelay: '0.2s' }}>
-            <div className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-[420px] lg:h-[420px]">
-              {/* Outer Glow */}
-              <div className="absolute inset-[-20px] bg-emerald-400/10 rounded-full blur-3xl animate-pulse"></div>
+            <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-[450px] lg:h-[450px]">
+              {/* Outer Effects */}
+              <div className="absolute inset-[-15px] border-2 border-emerald-100 rounded-full animate-[spin_12s_linear_infinite] opacity-40"></div>
+              <div className="absolute inset-[-30px] border border-dashed border-emerald-200 rounded-full animate-[spin_24s_linear_infinite_reverse] opacity-20"></div>
               
-              {/* Circular Frame */}
-              <div className="w-full h-full rounded-full border-4 border-white shadow-2xl animate-float relative z-10 overflow-hidden bg-emerald-50 ring-8 ring-emerald-50/50">
+              {/* Profile Photo - Circle */}
+              <div className="w-full h-full rounded-full overflow-hidden border-8 border-white shadow-2xl relative z-10 bg-slate-100 ring-4 ring-emerald-50 animate-float">
                 <img 
                   src={PROFILE_DATA.photoUrl} 
                   alt={PROFILE_DATA.name}
-                  className="w-full h-full object-cover transition-all duration-700"
+                  className="w-full h-full object-cover transition-all duration-1000 hover:scale-110"
                   style={{ 
-                    filter: 'contrast(1.05) brightness(1.02)',
+                    filter: 'contrast(1.02) brightness(1.02) saturate(0.95)',
                     objectPosition: 'center 15%'
                   }}
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${PROFILE_DATA.name}&background=059669&color=fff&size=512`;
                   }}
                 />
+                {/* Visual filter overlay */}
                 <div className="absolute inset-0 bg-emerald-600/5 mix-blend-overlay"></div>
               </div>
 
-              {/* Status Badge */}
-              <div className="absolute -bottom-4 -right-4 bg-white p-4 rounded-2xl shadow-xl border border-emerald-50 z-20 hidden md:block animate-reveal" style={{ animationDelay: '0.5s' }}>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center">
-                    <Award size={20} />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Achieved</p>
-                    <p className="text-xs font-black text-slate-900">71% Performance</p>
-                  </div>
+              {/* Achievement Pill */}
+              <div className="absolute -bottom-4 -right-2 bg-white p-4 rounded-2xl shadow-xl border border-emerald-50 z-20 hidden md:flex items-center gap-3 animate-reveal" style={{ animationDelay: '0.8s' }}>
+                <div className="w-10 h-10 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center">
+                  <Award size={20} />
+                </div>
+                <div>
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Score</p>
+                  <p className="text-xs font-black text-slate-900">71% Academic</p>
                 </div>
               </div>
             </div>
@@ -205,41 +233,41 @@ const App: React.FC = () => {
       </section>
 
       {/* Expertise Section */}
-      <section id="expertise-sec" className="py-16 md:py-24 bg-slate-50/50">
-        <div className="max-w-6xl mx-auto px-4 md:px-8">
-          <SectionHeader title="My Expertise" icon={<Terminal size={20} />} subtitle="Core competencies in civil engineering and site management." />
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+      <section id="expertise" className="py-20 bg-slate-50/50">
+        <div className="max-w-6xl mx-auto px-6">
+          <SectionHeader title="Technical Arsenal" icon={<Terminal size={20} />} subtitle="Practical skills in civil infrastructure and site execution." />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             {PROFILE_DATA.expertise.map((skill, index) => (
-              <div key={index} className="bg-white p-5 md:p-8 rounded-[2rem] border border-slate-100 shadow-sm card-hover text-center lg:text-left">
-                <div className="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-4 transition-all mx-auto lg:mx-0">
-                  <CheckCircle2 size={20} />
+              <div key={index} className="bg-white p-6 md:p-10 rounded-[2.5rem] border border-slate-100 shadow-sm card-3d text-center lg:text-left">
+                <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-5 transition-all mx-auto lg:mx-0">
+                  <CheckCircle2 size={24} />
                 </div>
-                <h3 className="text-sm md:text-lg font-black text-slate-900">{skill}</h3>
+                <h3 className="text-base md:text-xl font-black text-slate-900 leading-tight">{skill}</h3>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Experience & Education Grid */}
-      <section id="experience-sec" className="py-16 md:py-24 bg-white overflow-hidden">
-        <div className="max-w-6xl mx-auto px-4 md:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 md:gap-24">
-            {/* Experience Column */}
+      {/* Experience & Education */}
+      <section id="experience" className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-20">
+            {/* Experience */}
             <div>
-              <SectionHeader title="Experience" icon={<Briefcase size={20} />} />
-              <div className="space-y-10">
+              <SectionHeader title="Field Experience" icon={<Briefcase size={20} />} />
+              <div className="space-y-12">
                 {PROFILE_DATA.experience.map((exp, idx) => (
-                  <div key={idx} className="relative pl-10 border-l-2 border-emerald-100 group animate-reveal" style={{ animationDelay: `${idx * 0.1}s` }}>
-                    <div className="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-white border-4 border-emerald-600 transition-all group-hover:scale-125"></div>
+                  <div key={idx} className="relative pl-10 border-l-2 border-emerald-100 group">
+                    <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-emerald-600 ring-4 ring-white shadow-md group-hover:scale-125 transition-transform"></div>
                     <div>
-                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.2em]">{exp.duration}</span>
-                      <h3 className="text-xl md:text-2xl font-black text-slate-900 mt-1">{exp.role}</h3>
-                      <p className="text-sm text-slate-500 font-bold mb-4">{exp.company}</p>
-                      <ul className="space-y-2">
+                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.2em] mb-1 block">{exp.duration}</span>
+                      <h3 className="text-2xl font-black text-slate-900">{exp.role}</h3>
+                      <p className="text-base text-slate-500 font-bold mb-4">{exp.company}</p>
+                      <ul className="space-y-3">
                         {exp.details.map((d, di) => (
                           <li key={di} className="text-sm text-slate-500 flex gap-3">
-                            <ChevronRight size={16} className="text-emerald-500 flex-shrink-0 mt-0.5" />
+                            <ArrowRight size={16} className="text-emerald-500 mt-0.5 flex-shrink-0" />
                             {d}
                           </li>
                         ))}
@@ -250,19 +278,19 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* Education & Info Column */}
-            <div className="space-y-16" id="education-sec">
+            {/* Education Pillar */}
+            <div id="education" className="space-y-20">
               <div>
                 <SectionHeader title="Education" icon={<GraduationCap size={20} />} />
-                <div className="space-y-6">
+                <div className="space-y-8">
                   {PROFILE_DATA.education.map((edu, idx) => (
-                    <div key={idx} className="p-6 md:p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100 card-hover">
-                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">{edu.period}</span>
-                      <h3 className="text-xl font-black text-slate-900 leading-tight mt-1">{edu.degree}</h3>
-                      <p className="text-sm text-slate-500 font-bold mb-4">{edu.institution}</p>
+                    <div key={idx} className="p-8 bg-slate-50 rounded-[3rem] border border-slate-100 card-3d">
+                      <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest block mb-2">{edu.period}</span>
+                      <h3 className="text-xl md:text-2xl font-black text-slate-900 leading-tight">{edu.degree}</h3>
+                      <p className="text-base text-slate-500 font-bold mb-6">{edu.institution}</p>
                       <div className="flex flex-wrap gap-2">
                         {edu.highlights.map(h => (
-                          <span key={h} className="px-3 py-1 bg-white text-[10px] font-bold text-slate-400 rounded-full border border-slate-100 uppercase tracking-wider">{h}</span>
+                          <span key={h} className="px-4 py-1.5 bg-white text-[10px] font-black text-slate-400 rounded-full border border-slate-100 uppercase tracking-wider">{h}</span>
                         ))}
                       </div>
                     </div>
@@ -270,21 +298,24 @@ const App: React.FC = () => {
                 </div>
               </div>
               
-              <div className="p-8 bg-slate-900 rounded-[3rem] text-white shadow-2xl relative overflow-hidden group">
-                <div className="absolute -top-10 -right-10 w-40 h-40 bg-emerald-600/20 rounded-full blur-3xl group-hover:scale-150 transition-transform"></div>
-                <div className="relative z-10">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center">
-                      <Languages size={20} />
+              {/* Additional Details */}
+              <div className="p-10 bg-slate-900 rounded-[3rem] text-white shadow-2xl relative overflow-hidden group">
+                <div className="absolute -top-10 -right-10 w-48 h-48 bg-emerald-600/10 rounded-full blur-3xl group-hover:scale-150 transition-transform"></div>
+                <div className="relative z-10 space-y-8">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-emerald-600 rounded-2xl flex items-center justify-center">
+                      <Languages size={24} />
                     </div>
-                    <h3 className="font-black uppercase tracking-widest text-sm">Skills & Languages</h3>
+                    <h3 className="font-black uppercase tracking-[0.1em] text-lg">Bio & Languages</h3>
                   </div>
-                  <div className="flex flex-wrap gap-3 mb-8">
+                  <div className="flex flex-wrap gap-3">
                     {PROFILE_DATA.additional.languages.map(l => (
-                      <span key={l} className="px-4 py-2 bg-white/10 rounded-xl text-xs font-bold border border-white/5">{l}</span>
+                      <span key={l} className="px-5 py-2.5 bg-white/10 rounded-2xl text-xs font-bold border border-white/5">{l}</span>
                     ))}
                   </div>
-                  <p className="text-sm text-slate-400 italic leading-relaxed">{PROFILE_DATA.additional.certifications}</p>
+                  <p className="text-sm text-slate-400 leading-relaxed font-medium">
+                    {PROFILE_DATA.additional.hobbies}
+                  </p>
                 </div>
               </div>
             </div>
@@ -292,31 +323,48 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      {/* Achievement Highlights */}
+      <section className="py-20 bg-slate-50/50">
+        <div className="max-w-6xl mx-auto px-6">
+          <SectionHeader title="Achievements" icon={<Award size={20} />} />
+          <div className="grid sm:grid-cols-3 gap-8">
+            {PROFILE_DATA.achievements.map((item, idx) => (
+              <div key={idx} className="bg-white p-8 rounded-[3rem] shadow-sm flex flex-col items-center text-center group card-3d border border-white">
+                <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-3xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                  <CheckCircle2 size={32} />
+                </div>
+                <p className="text-xl font-black text-slate-900 tracking-tight leading-tight">{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
-      <section id="contact-sec" className="py-20 md:py-32 bg-slate-50/30">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="bg-emerald-600 rounded-[4rem] p-10 md:p-20 text-center text-white relative overflow-hidden shadow-2xl shadow-emerald-200">
-            <div className="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+      <section id="contact" className="py-32">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="bg-emerald-600 rounded-[5rem] p-12 md:p-24 text-center text-white relative overflow-hidden shadow-[0_40px_80px_-15px_rgba(5,150,105,0.3)]">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.1),transparent_40%)]"></div>
             
-            <div className="relative z-10 space-y-8 animate-reveal">
-              <h2 className="text-4xl md:text-7xl font-black tracking-tighter leading-[0.9] uppercase">
-                Let's Start <br/> A Project
+            <div className="relative z-10 space-y-10 animate-reveal">
+              <h2 className="text-5xl md:text-8xl font-black tracking-tighter leading-none uppercase">
+                Let's Build <br/> The Future.
               </h2>
-              <p className="text-base md:text-xl text-emerald-50 max-w-lg mx-auto font-medium opacity-90 leading-relaxed">
-                Open for internships and full-time junior engineering roles. Let's build the infrastructure of tomorrow.
+              <p className="text-lg md:text-2xl text-emerald-50 max-w-xl mx-auto font-medium opacity-90 leading-relaxed">
+                Currently open for roles where I can apply my site engineering and technical skills.
               </p>
               
               <div className="pt-6">
                 <a 
                   href={`mailto:${PROFILE_DATA.email}`} 
-                  className="inline-flex items-center gap-4 px-10 py-5 bg-white text-emerald-600 rounded-[2rem] font-black text-xl hover:scale-105 transition-all shadow-xl group active:scale-95"
+                  className="inline-flex items-center gap-4 px-12 py-6 bg-slate-900 text-white rounded-[2rem] font-black text-2xl hover:bg-white hover:text-emerald-600 transition-all shadow-2xl group active:scale-95"
                 >
-                  <Mail size={24} className="group-hover:rotate-12 transition-transform" />
+                  <Mail size={28} className="group-hover:rotate-12 transition-transform" />
                   <span>Send an Email</span>
                 </a>
               </div>
-              <p className="text-[10px] font-black text-emerald-200 uppercase tracking-[0.4em] opacity-80 pt-4">
-                Location: {PROFILE_DATA.location}
+              <p className="text-xs font-black text-emerald-200 uppercase tracking-[0.5em] opacity-70">
+                {PROFILE_DATA.location} &bull; SIDDHIGIRI7821@GMAIL.COM
               </p>
             </div>
           </div>
@@ -324,21 +372,21 @@ const App: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <div className="flex items-center justify-center gap-3 mb-6">
+      <footer className="py-20 border-t border-slate-100">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <div className="flex items-center justify-center gap-3 mb-8">
             <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white">
               <HardHat size={20} />
             </div>
             <span className="font-black text-2xl tracking-tighter text-slate-900 uppercase">{PROFILE_DATA.name}</span>
           </div>
-          <div className="flex justify-center gap-8 mb-10 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-            <a href="#about-sec" className="hover:text-emerald-600 transition-colors">About</a>
-            <a href="#expertise-sec" className="hover:text-emerald-600 transition-colors">Expertise</a>
-            <a href="#contact-sec" className="hover:text-emerald-600 transition-colors">Contact</a>
+          <div className="flex justify-center gap-10 mb-12 text-[11px] font-black text-slate-400 uppercase tracking-widest">
+            {navLinks.map(link => (
+              <a key={link.name} href={link.href} className="hover:text-emerald-600 transition-colors">{link.name}</a>
+            ))}
           </div>
-          <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.5em]">
-            &copy; {new Date().getFullYear()} SIDDHI GIRI &bull; CIVIL ENGINEER
+          <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.6em]">
+            &copy; {new Date().getFullYear()} SIDDHI GIRI &bull; CIVIL ENGINEERING
           </p>
         </div>
       </footer>

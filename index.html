@@ -17,75 +17,74 @@
         font-family: 'Plus Jakarta Sans', sans-serif;
         background-color: #fdfdfd;
         color: #0f172a;
+        margin: 0;
+        padding: 0;
       }
       
       @keyframes float {
         0%, 100% { transform: translateY(0) rotate(0); }
-        50% { transform: translateY(-15px) rotate(1deg); }
+        50% { transform: translateY(-10px) rotate(1deg); }
       }
       
-      @keyframes reveal {
-        from { opacity: 0; transform: translateY(30px); }
+      @keyframes revealUp {
+        from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
       }
 
-      @keyframes pulse-slow {
-        0%, 100% { opacity: 0.3; transform: scale(1); }
-        50% { opacity: 0.5; transform: scale(1.05); }
-      }
-
       .animate-float {
-        animation: float 5s ease-in-out infinite;
+        animation: float 6s ease-in-out infinite;
       }
       
       .animate-reveal {
-        opacity: 0;
-        animation: reveal 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        animation: revealUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
       }
 
       .glass {
-        background: rgba(255, 255, 255, 0.8);
+        background: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
       }
 
       .hero-gradient {
-        background: radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.08), transparent 40%),
-                    radial-gradient(circle at 20% 80%, rgba(52, 211, 153, 0.05), transparent 40%);
+        background: radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.12), transparent 50%),
+                    radial-gradient(circle at 20% 80%, rgba(52, 211, 153, 0.08), transparent 50%);
       }
 
-      .nav-link {
+      .taskbar-link {
         position: relative;
         font-size: 0.75rem;
         font-weight: 800;
-        letter-spacing: 0.1em;
+        letter-spacing: 0.15em;
         text-transform: uppercase;
         color: #64748b;
-        transition: color 0.3s;
+        transition: all 0.3s ease;
       }
-      .nav-link:hover {
+      .taskbar-link:hover {
         color: #059669;
+        transform: translateY(-1px);
       }
-      .nav-link::after {
+      .taskbar-link::after {
         content: '';
         position: absolute;
         bottom: -4px;
-        left: 0;
+        left: 50%;
         width: 0;
         height: 2px;
         background: #059669;
-        transition: width 0.3s;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
       }
-      .nav-link:hover::after {
+      .taskbar-link:hover::after {
         width: 100%;
       }
 
-      .card-hover {
-        transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      .card-3d {
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
-      .card-hover:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 40px -12px rgba(16, 185, 129, 0.15);
+      .card-3d:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 25px 50px -12px rgba(16, 185, 129, 0.2);
       }
     </style>
     <script type="importmap">
@@ -98,6 +97,7 @@
         }
       }
     </script>
+    <script type="module" src="index.tsx"></script>
   </head>
   <body>
     <div id="root"></div>
