@@ -1,14 +1,14 @@
 
 import React, { useEffect, useState } from 'react';
-import { 
-  HardHat, 
-  Mail, 
-  MapPin, 
-  Award, 
-  Briefcase, 
-  GraduationCap, 
-  CheckCircle2, 
-  Languages, 
+import {
+  HardHat,
+  Mail,
+  MapPin,
+  Award,
+  Briefcase,
+  GraduationCap,
+  CheckCircle2,
+  Languages,
   ArrowRight,
   Download,
   Terminal,
@@ -73,7 +73,7 @@ const PROFILE_DATA = {
     languages: ["English", "Marathi", "Hindi"],
     hobbies: "Proactive in sports, dance, and leadership roles."
   },
-  photoUrl: "input_file_0.png",
+  photoUrl: "/profile.jpg",
   resumeUrl: "input_file_1.png"
 };
 
@@ -126,7 +126,7 @@ const App: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <a 
+            <a
               href={`mailto:${PROFILE_DATA.email}`}
               className="px-6 py-2.5 bg-emerald-600 text-white text-xs font-black rounded-full hover:bg-slate-900 transition-all uppercase tracking-widest shadow-lg shadow-emerald-100 active:scale-95"
             >
@@ -142,9 +142,9 @@ const App: React.FC = () => {
         <div className={`md:hidden absolute top-full left-0 w-full bg-white border-b border-slate-100 transition-all duration-300 ${mobileMenuOpen ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-4 invisible'}`}>
           <div className="p-6 flex flex-col gap-4">
             {navLinks.map(link => (
-              <a 
-                key={link.name} 
-                href={link.href} 
+              <a
+                key={link.name}
+                href={link.href}
                 className="font-black text-slate-500 uppercase text-sm tracking-widest hover:text-emerald-600"
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -163,25 +163,25 @@ const App: React.FC = () => {
               <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
               Engineering Portfolio
             </div>
-            
+
             <h1 className="text-6xl md:text-8xl font-black text-slate-900 leading-[0.85] tracking-tighter">
-              {PROFILE_DATA.name.split(' ')[0]} <br/>
+              {PROFILE_DATA.name.split(' ')[0]} <br />
               <span className="text-emerald-600">{PROFILE_DATA.name.split(' ')[1]}</span>
             </h1>
 
             <p className="text-lg md:text-xl text-slate-500 font-medium max-w-xl mx-auto lg:mx-0 leading-relaxed">
               {PROFILE_DATA.summary}
             </p>
-            
+
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
-              <a 
-                href={`mailto:${PROFILE_DATA.email}`} 
+              <a
+                href={`mailto:${PROFILE_DATA.email}`}
                 className="px-10 py-5 bg-slate-900 text-white font-black rounded-2xl hover:bg-emerald-600 transition-all shadow-xl shadow-slate-100 flex items-center gap-3 active:scale-95"
               >
                 <UserCheck size={22} />
                 <span>HIRE ME</span>
               </a>
-              <a 
+              <a
                 href={PROFILE_DATA.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -198,15 +198,15 @@ const App: React.FC = () => {
               {/* Outer Effects */}
               <div className="absolute inset-[-15px] border-2 border-emerald-100 rounded-full animate-[spin_12s_linear_infinite] opacity-40"></div>
               <div className="absolute inset-[-30px] border border-dashed border-emerald-200 rounded-full animate-[spin_24s_linear_infinite_reverse] opacity-20"></div>
-              
+
               {/* Profile Photo - Circle */}
               <div className="w-full h-full rounded-full overflow-hidden border-8 border-white shadow-2xl relative z-10 bg-slate-100 ring-4 ring-emerald-50 animate-float">
-                <img 
-                  src={PROFILE_DATA.photoUrl} 
+                <img
+                  src={PROFILE_DATA.photoUrl}
                   alt={PROFILE_DATA.name}
                   className="w-full h-full object-cover transition-all duration-1000 hover:scale-110"
-                  style={{ 
-                    filter: 'contrast(1.02) brightness(1.02) saturate(0.95)',
+                  style={{
+                    filter: 'contrast(1.1) sepia(0.25) hue-rotate(100deg) saturate(1.1)',
                     objectPosition: 'center 15%'
                   }}
                   onError={(e) => {
@@ -214,7 +214,8 @@ const App: React.FC = () => {
                   }}
                 />
                 {/* Visual filter overlay */}
-                <div className="absolute inset-0 bg-emerald-600/5 mix-blend-overlay"></div>
+                <div className="absolute inset-0 bg-emerald-600/20 mix-blend-color"></div>
+                <div className="absolute inset-0 bg-emerald-900/10 mix-blend-overlay"></div>
               </div>
 
               {/* Achievement Pill */}
@@ -297,7 +298,7 @@ const App: React.FC = () => {
                   ))}
                 </div>
               </div>
-              
+
               {/* Additional Details */}
               <div className="p-10 bg-slate-900 rounded-[3rem] text-white shadow-2xl relative overflow-hidden group">
                 <div className="absolute -top-10 -right-10 w-48 h-48 bg-emerald-600/10 rounded-full blur-3xl group-hover:scale-150 transition-transform"></div>
@@ -345,18 +346,18 @@ const App: React.FC = () => {
         <div className="max-w-5xl mx-auto px-6">
           <div className="bg-emerald-600 rounded-[5rem] p-12 md:p-24 text-center text-white relative overflow-hidden shadow-[0_40px_80px_-15px_rgba(5,150,105,0.3)]">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.1),transparent_40%)]"></div>
-            
+
             <div className="relative z-10 space-y-10 animate-reveal">
               <h2 className="text-5xl md:text-8xl font-black tracking-tighter leading-none uppercase">
-                Let's Build <br/> The Future.
+                Let's Build <br /> The Future.
               </h2>
               <p className="text-lg md:text-2xl text-emerald-50 max-w-xl mx-auto font-medium opacity-90 leading-relaxed">
                 Currently open for roles where I can apply my site engineering and technical skills.
               </p>
-              
+
               <div className="pt-6">
-                <a 
-                  href={`mailto:${PROFILE_DATA.email}`} 
+                <a
+                  href={`mailto:${PROFILE_DATA.email}`}
                   className="inline-flex items-center gap-4 px-12 py-6 bg-slate-900 text-white rounded-[2rem] font-black text-2xl hover:bg-white hover:text-emerald-600 transition-all shadow-2xl group active:scale-95"
                 >
                   <Mail size={28} className="group-hover:rotate-12 transition-transform" />
